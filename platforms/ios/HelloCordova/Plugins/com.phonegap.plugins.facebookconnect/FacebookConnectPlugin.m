@@ -229,6 +229,20 @@
     }];
 }
 
+- (void)activateApp:(CDVInvokedUrlCommand *)command {
+    if ([command.arguments count] != 0) {
+        // Not enough arguments
+        CDVPluginResult *res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid arguments"];
+        [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+        return;
+    }
+    [self.commandDelegate runInBackground:^{
+        [FBAppEvents activateApp];
+        CDVPluginResult *res = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
+    }];
+}
+
 - (void)logPurchase:(CDVInvokedUrlCommand *)command {
     /*
      While calls to logEvent can be made to register purchase events,

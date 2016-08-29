@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,6 +38,7 @@ import com.facebook.Request.GraphUserCallback;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.AppEventsLogger;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
@@ -342,6 +344,12 @@ public class ConnectPlugin extends CordovaPlugin {
                 }
             }
             callbackContext.success();
+            return true;
+ 
+        } else if (action.equals("activateApp")) {
+            Context context = cordova.getActivity().getApplicationContext();
+            AppEventsLogger.activateApp(context, applicationId);
+            callbackContext.success("");
             return true;
         } else if (action.equals("logPurchase")) {
             /*

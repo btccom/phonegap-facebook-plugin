@@ -107,6 +107,10 @@ if (cordova.platformId == "browser") {
             s();
         },
 
+        activateApp: function(s) {
+            s();
+        },
+
         logout: function (s, f) {
             // Try will catch errors when SDK has not been init
             try {
@@ -205,6 +209,10 @@ if (cordova.platformId == "browser") {
             } else {
                 f("Invalid arguments");
             }
+        },
+
+        activateApp: function(s, f) {
+            exec(s, f, "FacebookConnectPlugin", "activateApp", []);
         },
 
         logPurchase: function(value, currency, s, f) {
